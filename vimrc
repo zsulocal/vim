@@ -105,19 +105,23 @@ let g:vimrc_author='local'
 ""Bundle 'einars/js-beautify'
 
 Bundle 'scrooloose/nerdcommenter'
-""Bundle 'tomtom/checksyntax_vim'
-Bundle 'scrooloose/syntastic'
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+Bundle 'tomtom/checksyntax_vim'
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+if has("gui_running")
+    Bundle 'scrooloose/syntastic'
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
 
-Bundle 'tpope/vim-pathogen'
-execute pathogen#infect()
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 0
+
+    ""Bundle 'tpope/vim-pathogen'
+    ""execute pathogen#infect()
+endif
+
 Bundle 'nathanaelkane/vim-indent-guides'
 
 Bundle 'scrooloose/nerdtree'
@@ -132,6 +136,23 @@ Bundle 'shawncplus/phpcomplete.vim'
 Bundle 'majutsushi/tagbar'
 Bundle "brookhong/cscope.vim"
 Bundle "msanders/cocoa.vim"
+
+" s: Find this C symbol
+nnoremap  <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>
+" g: Find this definition
+nnoremap  <leader>fg :call CscopeFind('g', expand('<cword>'))<CR>
+" d: Find functions called by this function
+nnoremap  <leader>fd :call CscopeFind('d', expand('<cword>'))<CR>
+" c: Find functions calling this function
+nnoremap  <leader>fc :call CscopeFind('c', expand('<cword>'))<CR>
+" t: Find this text string
+nnoremap  <leader>ft :call CscopeFind('t', expand('<cword>'))<CR>
+" e: Find this egrep pattern
+nnoremap  <leader>fe :call CscopeFind('e', expand('<cword>'))<CR>
+" f: Find this file
+nnoremap  <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
+" i: Find files #including this file
+nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
 Bundle "tpope/vim-fugitive"
 
 let g:cscope_cmd = "/usr/local/bin/cscope"
@@ -152,7 +173,7 @@ Bundle 'mattn/emmet-vim'
 
 Bundle 'jlanzarotta/bufexplorer'
 nmap bb :BufExplorer<CR>
-if has("gui_running")
+""if has("gui_running")
     Bundle 'Valloric/YouCompleteMe'
     ""let g:ycm_key_list_previous_completion = ['<c-p>', '<Up>']
     ""let g:ycm_add_preview_to_completeopt=1
@@ -166,12 +187,17 @@ if has("gui_running")
     let g:ycm_collect_identifiers_from_comments_and_strings = 1
 
     set shortmess=a
-endif
+""endif
 
+""Bundle 'davidhalter/jedi-vim'
 
 Bundle "orenhe/pylint.vim"
 Bundle "tomasr/molokai"
 Bundle "hynek/vim-python-pep8-indent"
+
+Bundle "terryma/vim-multiple-cursors"
+Bundle "mxw/vim-jsx"
+let g:jsx_ext_required = 0
 
 autocmd! bufwritepost _vimrc source %
 nnoremap <tab> %
@@ -198,7 +224,7 @@ set complete-=k complete+=k
 
 if has("gui_running")
     cd ~/Documents/work
-    autocmd VimEnter * NERDTree
+    ""autocmd VimEnter * NERDTree
     autocmd VimEnter * nested :TagbarOpen
     autocmd BufRead * :TagbarOpen
     set transparency=20
