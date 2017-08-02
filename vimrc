@@ -1,3 +1,4 @@
+
 set nocompatible
 filetype off
 set nowrap
@@ -31,6 +32,9 @@ set ruler
 set autoread
 set autowrite
 set cursorline
+syntax sync minlines=256
+
+set incsearch
 set noswapfile
 set ignorecase
 set enc=utf-8
@@ -105,7 +109,8 @@ let g:vimrc_author='local'
 ""Bundle 'einars/js-beautify'
 
 Bundle 'scrooloose/nerdcommenter'
-Bundle 'tomtom/checksyntax_vim'
+""Bundle 'tomtom/checksyntax_vim'
+Bundle 'evanmiller/nginx-vim-syntax'
 
 if has("gui_running")
     Bundle 'scrooloose/syntastic'
@@ -130,12 +135,16 @@ Bundle 'vim-scripts/Conque-Shell'
 
 Bundle 'vim-scripts/calendar.vim'
 Bundle 'vim-scripts/SearchComplete'
+Bundle 'will133/vim-dirdiff'
 Bundle 'vim-scripts/auto_mkdir'
 Bundle 'pangloss/vim-javascript'
 Bundle 'shawncplus/phpcomplete.vim'
 Bundle 'majutsushi/tagbar'
 Bundle "brookhong/cscope.vim"
 Bundle "msanders/cocoa.vim"
+Bundle "solarnz/thrift.vim"
+Bundle "fatih/vim-go"
+Bundle "endel/flashdevelop.vim"
 
 " s: Find this C symbol
 nnoremap  <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>
@@ -186,7 +195,7 @@ nmap bb :BufExplorer<CR>
     "收集字符串"
     let g:ycm_collect_identifiers_from_comments_and_strings = 1
 
-    set shortmess=a
+    "#"set shortmess=a
 ""endif
 
 ""Bundle 'davidhalter/jedi-vim'
@@ -194,10 +203,14 @@ nmap bb :BufExplorer<CR>
 Bundle "orenhe/pylint.vim"
 Bundle "tomasr/molokai"
 Bundle "hynek/vim-python-pep8-indent"
+let g:pymode_indent = 0
 
 Bundle "terryma/vim-multiple-cursors"
 Bundle "mxw/vim-jsx"
+Bundle "justinj/vim-react-snippets"
 let g:jsx_ext_required = 0
+
+Bundle "iamcco/markdown-preview.vim"
 
 autocmd! bufwritepost _vimrc source %
 nnoremap <tab> %
@@ -223,12 +236,13 @@ autocmd filetype php set filetype=php.html.javascript
 set complete-=k complete+=k
 
 if has("gui_running")
-    cd ~/Documents/work
+    cd ~/Documents/git
     ""autocmd VimEnter * NERDTree
     autocmd VimEnter * nested :TagbarOpen
     autocmd BufRead * :TagbarOpen
-    set transparency=20
-    set guifont=Monaco:h10
+    autocmd BufRead,BufNewFile *.as set filetype=as3
+    set transparency=5
+    set guifont=Monaco:h11
     colorscheme molokai
 endif
 " Key to go into dvorak mode:
